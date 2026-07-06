@@ -8,7 +8,7 @@
 
 void getBootConfigs(std::vector<BootEntry> &out_bootEntries, u16 &currAutoBootEntryIndex) {
     out_bootEntries.clear();
-    out_bootEntries.push_back({"Hekate menu", 0, false});
+    out_bootEntries.push_back({"Hekate 菜单", 0, false});
     currAutoBootEntryIndex = 0;
 
     u16 id;
@@ -76,13 +76,13 @@ void getBootConfigs(std::vector<BootEntry> &out_bootEntries, u16 &currAutoBootEn
 const char *GetAppletName(u64 appID) {
     switch (appID) {
         case AppletID::AppletController:
-            return "Controller";
+            return "手柄";
         case AppletID::AppletMyPage:
-            return "User Profile";
+            return "用户资料";
         case AppletID::AppletShop:
             return "Nintendo eShop";
         case AppletID::AppletPhotoViewer:
-            return "Album";
+            return "相册";
         default:
             return nullptr;
     }

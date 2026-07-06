@@ -49,10 +49,10 @@ GuiHekate::GuiHekate() : Gui() {
             restrictedMode = true;
 
             if (model == SetSysProductModel_Iowa || model == SetSysProductModel_Hoag || model == SetSysProductModel_Calcio || model == SetSysProductModel_Aula) {
-                errorMessage = "Unsupported switch model (Mariko)";
+                errorMessage = "不支持的 Switch 型号 (Mariko)";
             }
             else {
-                errorMessage = "Unknown switch model";
+                errorMessage = "未知的 Switch 型号";
             }
             
         }
@@ -62,14 +62,14 @@ GuiHekate::GuiHekate() : Gui() {
         // set restricted mode so the hekate stuff isn't loaded in
         restrictedMode = true;
         canReboot = false;
-        errorMessage = "Failed to initialize spsm!";
+        errorMessage = "初始化 spsm 失败！";
     }
 
     if (canReboot && !restrictedMode) {
         smExit(); //Required to connect to ams:bpc
         if (R_FAILED(rc = amsBpcInitialize())) {
             restrictedMode = true;
-            errorMessage = "Failed to initialize ams:bpc!";
+            errorMessage = "初始化 ams:bpc 失败！";
             smInitialize();
         }
     }
@@ -78,7 +78,7 @@ GuiHekate::GuiHekate() : Gui() {
         FILE *f = fopen("sdmc:/bootloader/update.bin", "rb");
         if (f == NULL) {
             restrictedMode = true;
-            errorMessage = "Can't find \"bootloader/update.bin\"!";
+            errorMessage = "找不到 \"bootloader/update.bin\"！";
         }
     }
 
@@ -100,7 +100,7 @@ void GuiHekate::initializeForRestrictedMode() {
     shutdownButton->adjacentButton[ADJ_RIGHT] = 1;
     shutdownButton->drawAction = [shutdownButton](Gui *gui, u16 x, u16 y, bool *isActivated) {
         gui->drawRectangled(x, y, shutdownButton->volume.first, shutdownButton->volume.second, currTheme.submenuButtonColor);
-        gui->drawTextAligned(font20, x + shutdownButton->volume.first / 2, y + shutdownButton->volume.second / 2 + 10, currTheme.textColor, "Shutdown", ALIGNED_CENTER);
+        gui->drawTextAligned(font20, x + shutdownButton->volume.first / 2, y + shutdownButton->volume.second / 2 + 10, currTheme.textColor, "关机", ALIGNED_CENTER);
     };
     shutdownButton->inputAction = [&](u32 kdown, bool *isActivated) {
         if (kdown & HidNpadButton_A) {
@@ -116,7 +116,7 @@ void GuiHekate::initializeForRestrictedMode() {
     rebootButton->adjacentButton[ADJ_LEFT] = 0;
     rebootButton->drawAction = [rebootButton](Gui *gui, u16 x, u16 y, bool *isActivated) {
         gui->drawRectangled(x, y, rebootButton->volume.first, rebootButton->volume.second, currTheme.submenuButtonColor);
-        gui->drawTextAligned(font20, x + rebootButton->volume.first / 2, y + rebootButton->volume.second / 2 + 10, currTheme.textColor, "Reboot to payload", ALIGNED_CENTER);
+        gui->drawTextAligned(font20, x + rebootButton->volume.first / 2, y + rebootButton->volume.second / 2 + 10, currTheme.textColor, "重启到 Payload", ALIGNED_CENTER);
     };
     rebootButton->inputAction = [&](u32 kdown, bool *isActivated) {
         if (kdown & HidNpadButton_A) {
@@ -140,7 +140,7 @@ void GuiHekate::InitializeRegular() {
     profileButton->adjacentButton[ADJ_DOWN] = 1;
     profileButton->volume = {Gui::g_framebuffer_width - 400, 80};
     profileButton->drawAction = [&](Gui *gui, u16 x, u16 y, bool *isActivated) {
-        gui->drawTextAligned(font20, x + 37, y + 50, currTheme.textColor, "Hekate profile", ALIGNED_LEFT);
+        gui->drawTextAligned(font20, x + 37, y + 50, currTheme.textColor, "Hekate 配置", ALIGNED_LEFT);
         std::string autoBootName = m_currRebootConfig.name;
 
         if (autoBootName.length() >= 25) {
@@ -157,7 +157,7 @@ void GuiHekate::InitializeRegular() {
             for (auto const &autoBootEntry : m_rebootConfigs)
                 rebootNames.push_back(autoBootEntry.name);
 
-            (new ListSelector("Hekate profile to reboot to", "\uE0E1 Back     \uE0E0 OK", rebootNames, currRebootEntryIndex))
+            (new ListSelector("选择要重启到的 Hekate 配置", "\uE0E1 返回     \uE0E0 确定", rebootNames, currRebootEntryIndex))
                 ->setInputAction([&](u32 k, u16 selectedItem) {
                     if (k & HidNpadButton_A) {
                         currRebootEntryIndex = selectedItem;
@@ -178,7 +178,7 @@ void GuiHekate::InitializeRegular() {
     rebootButton->adjacentButton[ADJ_UP] = 0;
     rebootButton->drawAction = [&](Gui *gui, u16 x, u16 y, bool *isActivated) {
         gui->drawRectangled(x, y, Gui::g_framebuffer_width - 800, 80, currTheme.submenuButtonColor);
-        gui->drawTextAligned(font20, Gui::g_framebuffer_width / 2, y + 50, currTheme.textColor, "Reboot now!", ALIGNED_CENTER);
+        gui->drawTextAligned(font20, Gui::g_framebuffer_width / 2, y + 50, currTheme.textColor, "立即重启！", ALIGNED_CENTER);
     };
     rebootButton->inputAction = [&](u32 kdown, bool *isActivated) {
         if (kdown & HidNpadButton_A) {
@@ -204,7 +204,7 @@ void GuiHekate::InitializeRegular() {
 
                 reboot_to_payload();
             } else
-                (new MessageBox("Can't find \"bootloader/update.bin\"!", MessageBox::OKAY))->show();
+                (new MessageBox("找不到 \"bootloader/update.bin\"！", MessageBox::OKAY))->show();
         }
     };
     add(rebootButton);
@@ -232,21 +232,21 @@ void GuiHekate::draw() {
     Gui::drawRectangle((u32)((Gui::g_framebuffer_width - 1220) / 2), Gui::g_framebuffer_height - 73, 1220, 1, currTheme.textColor);
     Gui::drawTextAligned(fontIcons, 70, 68, currTheme.textColor, "\uE130", ALIGNED_LEFT);
     Gui::drawTextAligned(font24, 70, 58, currTheme.textColor, "        Hekate Toolbox", ALIGNED_LEFT);
-    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E1 Back     \uE0E0 OK", ALIGNED_RIGHT);
+    Gui::drawTextAligned(font20, Gui::g_framebuffer_width - 50, Gui::g_framebuffer_height - 25, currTheme.textColor, "\uE0E1 返回     \uE0E0 确定", ALIGNED_RIGHT);
 
     if (canReboot)
     {
         if (restrictedMode)
         {
-            Gui::drawTextAligned(font24, Gui::g_framebuffer_width / 2, 150, currTheme.activatedColor, "Restricted mode", ALIGNED_CENTER);
-            Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 200, currTheme.textColor, "Rebooting directly to hekate is not possible,\nbut you can choose one of these two options:", ALIGNED_CENTER);
+            Gui::drawTextAligned(font24, Gui::g_framebuffer_width / 2, 150, currTheme.activatedColor, "受限模式", ALIGNED_CENTER);
+            Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 200, currTheme.textColor, "无法直接重启到 Hekate，\n但你可以选择以下两种方式之一：", ALIGNED_CENTER);
 
-            const std::string restrictedModeReason = "Restricted mode reason: " + errorMessage;
+            const std::string restrictedModeReason = "受限模式原因：" + errorMessage;
             Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, Gui::g_framebuffer_height - 150, currTheme.textColor, restrictedModeReason.c_str(), ALIGNED_CENTER);
         }
         else
         {
-            Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "Select the Hekate profile you want to reboot your Nintendo Switch into. \n Make sure to close all open titles beforehand as this will reboot your device immediately.", ALIGNED_CENTER);
+            Gui::drawTextAligned(font20, Gui::g_framebuffer_width / 2, 150, currTheme.textColor, "选择要重启到的 Hekate 配置。\n 请确保先关闭所有正在运行的标题，因为这将立即重启设备。", ALIGNED_CENTER);
         }
     }
     else

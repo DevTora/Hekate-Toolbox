@@ -1,22 +1,23 @@
 # Hekate Toolbox
 
-A Swiss Army Knife for Hekate. It was originally developed for the use with AnnsAnn's SDFiles (Later AtlasNX's Kosmos), but fully works with Hekate-based CFW configurations and some features even work without it.
+Hekate 的瑞士军刀。最初为配合 AnnsAnn 的 SDFiles（后为 AtlasNX 的 Kosmos）而开发，但完全兼容基于 Hekate 的 CFW 配置，部分功能甚至无需 Hekate 也能使用。
 
-## Current Features
-- Reading and modifying of the hbmenu launch button combination 
-- Actually modifying the hbmenu config as well so settings stick across reboots
-- Reading and modifying from where hbmenu launches by default
-- Sysmodule hotloading and unloading
-- Reboot to Hekate profiles and the Hekate menu
-- Boot to UMS (SD Card)
-- Mariko support (Limits features)
+## 当前功能
 
-## Compiling
+- 读取和修改 hbmenu 启动按键组合
+- 同时修改 hbmenu 配置，重启后设置依然生效
+- 读取和修改 hbmenu 默认启动来源
+- Sysmodule 热加载与卸载
+- 重启到 Hekate 配置和 Hekate 菜单
+- 启动到 UMS（SD 卡模式）
+- Mariko 支持（功能受限）
 
-You need: 
+## 编译
+
+需要安装以下 devkitPro 包：
 
 ```
- switch-libjpeg-turbo
- switch-freetype
- switch-dev
+switch-libjpeg-turbo
+switch-freetype
+switch-dev
 ```
