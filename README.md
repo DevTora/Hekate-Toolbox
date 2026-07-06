@@ -1,8 +1,6 @@
-# Hekate Toolbox
+# Hekate Toolbox 中文版
 
-Hekate 的瑞士军刀。最初为配合 AnnsAnn 的 SDFiles（后为 AtlasNX 的 Kosmos）而开发，但完全兼容基于 Hekate 的 CFW 配置，部分功能甚至无需 Hekate 也能使用。
-
-## 当前功能
+## 功能
 
 - 读取和修改 hbmenu 启动按键组合
 - 同时修改 hbmenu 配置，重启后设置依然生效
@@ -21,3 +19,9 @@ switch-libjpeg-turbo
 switch-freetype
 switch-dev
 ```
+
+在项目根目录运行 `make` 命令，`out/` 目录将生成 `.nro` 文件。
+
+## 许可
+
+本项目基于 GPL-3.0 许可证开源，详情请参见 [LICENSE](LICENSE) 文件。
